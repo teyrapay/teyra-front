@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "TeyrapPay Platform"
+version = "1.0.0"
+id = "artifacts/teyrapay"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20137
+
+[services.development]
+run = "pnpm --filter @workspace/teyrapay run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/teyrapay", "run", "build" ]
+publicDir = "artifacts/teyrapay/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20137"
+BASE_PATH = "/"

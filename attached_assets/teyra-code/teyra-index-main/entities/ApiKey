@@ -1,0 +1,35 @@
+{
+  "name": "ApiKey",
+  "type": "object",
+  "properties": {
+    "merchant_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "key_prefix": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "live",
+        "test"
+      ],
+      "default": "test"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_used": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "key_prefix",
+    "environment"
+  ]
+}

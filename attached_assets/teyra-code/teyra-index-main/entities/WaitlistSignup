@@ -1,0 +1,52 @@
+{
+  "name": "WaitlistSignup",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "Email address of the signup"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Company or business name"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country of the business"
+    },
+    "monthly_volume": {
+      "type": "string",
+      "enum": [
+        "under_10k",
+        "10k_100k",
+        "100k_1m",
+        "over_1m"
+      ],
+      "description": "Expected monthly processing volume"
+    },
+    "use_case": {
+      "type": "string",
+      "enum": [
+        "ecommerce",
+        "saas",
+        "marketplace",
+        "fintech",
+        "other"
+      ],
+      "description": "Primary use case"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending",
+      "description": "Waitlist status"
+    }
+  },
+  "required": [
+    "email"
+  ]
+}

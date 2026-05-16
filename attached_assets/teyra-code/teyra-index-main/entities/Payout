@@ -1,0 +1,44 @@
+{
+  "name": "Payout",
+  "type": "object",
+  "properties": {
+    "merchant_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "SAR"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_transit",
+        "paid",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "bank_name": {
+      "type": "string"
+    },
+    "account_last4": {
+      "type": "string"
+    },
+    "arrival_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "currency",
+    "status"
+  ]
+}

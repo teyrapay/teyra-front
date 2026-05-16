@@ -1,0 +1,71 @@
+{
+  "name": "Transaction",
+  "type": "object",
+  "properties": {
+    "merchant_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "SAR"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "succeeded",
+        "failed",
+        "refunded",
+        "disputed"
+      ],
+      "default": "pending"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "card",
+        "mada",
+        "apple_pay",
+        "stc_pay",
+        "bank_transfer"
+      ],
+      "default": "card"
+    },
+    "psp": {
+      "type": "string",
+      "enum": [
+        "paytabs",
+        "checkout",
+        "moyasar",
+        "hyperpay"
+      ],
+      "default": "paytabs"
+    },
+    "customer_email": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "fee": {
+      "type": "number"
+    },
+    "net": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "amount",
+    "currency",
+    "status"
+  ]
+}
