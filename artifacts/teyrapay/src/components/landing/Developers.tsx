@@ -1,5 +1,6 @@
 import { Terminal, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const CODE_EXAMPLE = `// Create a payment with TeyraPay API
 const payment = await teyrapay.payments.create({
@@ -27,6 +28,7 @@ console.log(payment.status); // 'succeeded'
 console.log(payment.id);     // 'pay_1a2b3c4d5e6f'`;
 
 export default function Developers() {
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
@@ -40,20 +42,15 @@ export default function Developers() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="inline-block text-primary text-sm font-semibold tracking-widest uppercase mb-4">For Developers</span>
-            <h2 className="font-syne text-4xl md:text-5xl font-bold text-white mb-6">
-              An API you'll<br />actually enjoy using
+            <span className="inline-block text-primary text-sm font-semibold tracking-widest uppercase mb-4">{t.developers.badge}</span>
+            <h2 className="font-syne text-4xl md:text-5xl font-bold text-white mb-6 whitespace-pre-line">
+              {t.developers.headline}
             </h2>
             <p className="text-white/50 text-lg leading-relaxed mb-8">
-              Clean REST API modeled after Stripe. Idempotency keys, cursor pagination, comprehensive webhooks, and SDKs for every major language.
+              {t.developers.subtitle}
             </p>
             <div className="grid grid-cols-2 gap-4 mb-8">
-              {[
-                { label: 'REST API', desc: 'Clean, predictable endpoints' },
-                { label: 'SDKs', desc: 'Node.js, Python, PHP' },
-                { label: 'Webhooks', desc: 'Reliable event delivery' },
-                { label: 'Test Mode', desc: 'Safe sandbox environment' },
-              ].map(item => (
+              {t.developers.cards.map(item => (
                 <div key={item.label} className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4">
                   <div className="font-syne font-bold text-white text-sm mb-0.5">{item.label}</div>
                   <div className="text-white/40 text-xs">{item.desc}</div>
@@ -62,7 +59,7 @@ export default function Developers() {
             </div>
             <a href="/docs" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
               <Terminal className="w-4 h-4" />
-              View Full API Documentation →
+              {t.developers.docsLink}
             </a>
           </div>
 

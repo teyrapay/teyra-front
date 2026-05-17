@@ -1,4 +1,5 @@
 import PageLayout from '@/components/landing/PageLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const SECTIONS = [
   { title: '1. Information We Collect', content: `We collect information you provide directly to us when you register for a TeyraPay account, complete our KYC/KYB verification process, or communicate with us. This includes:\n\n• Identity information: full legal name, date of birth, passport or national ID number\n• Contact information: email address, phone number, mailing address\n• Business information: trade name, commercial registration number, industry type, estimated monthly volume\n• Financial information: bank account details for settlement, beneficial ownership information\n• Technical information: IP address, browser type, device identifiers, and usage logs collected automatically through cookies and similar technologies` },
@@ -11,20 +12,31 @@ const SECTIONS = [
 ];
 
 export default function PrivacyPage() {
+  const { lang } = useLanguage();
+  const isAr = lang === 'ar';
+
   return (
     <PageLayout>
       <section className="relative bg-[hsl(222,47%,7%)] py-20 overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-100" />
         <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <span className="inline-block bg-primary/10 border border-primary/20 text-primary text-sm font-semibold px-4 py-1.5 rounded-full mb-6">Legal · Privacy Policy</span>
-          <h1 className="font-syne text-4xl md:text-5xl font-extrabold text-white mb-4">Privacy Policy</h1>
-          <p className="text-white/50">Effective date: May 1, 2026 · Last updated: May 1, 2026</p>
+          <span className="inline-block bg-primary/10 border border-primary/20 text-primary text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+            {isAr ? 'قانوني · سياسة الخصوصية' : 'Legal · Privacy Policy'}
+          </span>
+          <h1 className="font-syne text-4xl md:text-5xl font-extrabold text-white mb-4">
+            {isAr ? 'سياسة الخصوصية' : 'Privacy Policy'}
+          </h1>
+          <p className="text-white/50">
+            {isAr ? 'تاريخ النفاذ: 1 مايو 2026 · آخر تحديث: 1 مايو 2026' : 'Effective date: May 1, 2026 · Last updated: May 1, 2026'}
+          </p>
         </div>
       </section>
       <section className="py-16 bg-background">
         <div className="max-w-3xl mx-auto px-6 space-y-10">
           <p className="text-muted-foreground leading-relaxed">
-            TeyraPay Financial Technology Co. ("TeyraPay", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our payment platform and related services.
+            {isAr
+              ? 'تلتزم TeyraPay لتقنية المالية ("TeyraPay" أو "نحن") بحماية خصوصيتك. توضح سياسة الخصوصية هذه كيفية جمع معلوماتك واستخدامها والإفصاح عنها وحمايتها عند استخدام منصة الدفع والخدمات ذات الصلة.'
+              : 'TeyraPay Financial Technology Co. ("TeyraPay", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our payment platform and related services.'}
           </p>
           {SECTIONS.map(s => (
             <div key={s.title}>

@@ -5,41 +5,46 @@ import {
   BookOpen, Terminal, Webhook, Key, Code2, CreditCard,
   Users, RefreshCw, FileText, Shield, Layers
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // ─── Sidebar nav structure ────────────────────────────────────────────────────
 const SIDEBAR = [
   {
     group: 'Getting Started',
+    groupAr: 'البدء السريع',
     items: [
-      { label: 'Introduction', id: 'intro', icon: BookOpen },
-      { label: 'Quickstart', id: 'quickstart', icon: Terminal, active: true },
-      { label: 'Authentication', id: 'auth', icon: Key },
-      { label: 'SDKs & Libraries', id: 'sdks', icon: Code2 },
+      { label: 'Introduction', labelAr: 'المقدمة', id: 'intro', icon: BookOpen },
+      { label: 'Quickstart', labelAr: 'البدء الأول', id: 'quickstart', icon: Terminal, active: true },
+      { label: 'Authentication', labelAr: 'المصادقة', id: 'auth', icon: Key },
+      { label: 'SDKs & Libraries', labelAr: 'حزم SDK', id: 'sdks', icon: Code2 },
     ],
   },
   {
     group: 'Payments',
+    groupAr: 'المدفوعات',
     items: [
-      { label: 'Create a Payment', id: 'create-payment', icon: CreditCard },
-      { label: 'Payment Methods', id: 'payment-methods', icon: Layers },
-      { label: 'Refunds', id: 'refunds', icon: RefreshCw },
-      { label: 'Webhooks', id: 'webhooks', icon: Webhook },
+      { label: 'Create a Payment', labelAr: 'إنشاء مدفوعة', id: 'create-payment', icon: CreditCard },
+      { label: 'Payment Methods', labelAr: 'طرق الدفع', id: 'payment-methods', icon: Layers },
+      { label: 'Refunds', labelAr: 'الاستردادات', id: 'refunds', icon: RefreshCw },
+      { label: 'Webhooks', labelAr: 'الويب هوك', id: 'webhooks', icon: Webhook },
     ],
   },
   {
     group: 'Products',
+    groupAr: 'المنتجات',
     items: [
-      { label: 'Payment Links', id: 'payment-links', icon: FileText },
-      { label: 'Invoices', id: 'invoices', icon: FileText },
-      { label: 'Subscriptions', id: 'subscriptions', icon: RefreshCw },
+      { label: 'Payment Links', labelAr: 'روابط الدفع', id: 'payment-links', icon: FileText },
+      { label: 'Invoices', labelAr: 'الفواتير', id: 'invoices', icon: FileText },
+      { label: 'Subscriptions', labelAr: 'الاشتراكات', id: 'subscriptions', icon: RefreshCw },
     ],
   },
   {
     group: 'Management',
+    groupAr: 'الإدارة',
     items: [
-      { label: 'Customers', id: 'customers', icon: Users },
-      { label: 'Payouts', id: 'payouts', icon: CreditCard },
-      { label: 'Compliance & KYC', id: 'kyc', icon: Shield },
+      { label: 'Customers', labelAr: 'العملاء', id: 'customers', icon: Users },
+      { label: 'Payouts', labelAr: 'المدفوعات الصادرة', id: 'payouts', icon: CreditCard },
+      { label: 'Compliance & KYC', labelAr: 'الامتثال وKYC', id: 'kyc', icon: Shield },
     ],
   },
 ];
@@ -357,6 +362,8 @@ function CopyButton({ text }: { text: string }) {
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function DocsPage() {
   const [, setLocation] = useLocation();
+  const { lang } = useLanguage();
+  const isAr = lang === 'ar';
   const [activeLang, setActiveLang] = useState('Node.js');
   const [activeStep, setActiveStep] = useState('install');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -391,7 +398,7 @@ export default function DocsPage() {
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search documentation..."
+              placeholder={isAr ? 'ابحث في التوثيق...' : 'Search documentation...'}
               className="w-full bg-white/[0.05] border border-white/[0.08] rounded-lg pl-9 pr-4 py-1.5 text-sm text-white/60 placeholder:text-white/20 focus:outline-none focus:border-primary/40 focus:bg-white/[0.07] transition-colors"
             />
           </div>
@@ -399,11 +406,11 @@ export default function DocsPage() {
         <div className="ml-auto flex items-center gap-3">
           <Link href="/api-keys" className="hidden sm:flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors">
             <Key className="w-3.5 h-3.5" />
-            API Keys
+            {isAr ? 'مفاتيح API' : 'API Keys'}
           </Link>
           <Link href="/get-started">
             <button className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg transition-colors">
-              Get Started
+              {isAr ? 'ابدأ الآن' : 'Get Started'}
             </button>
           </Link>
         </div>
@@ -420,7 +427,7 @@ export default function DocsPage() {
           <div className="px-4 py-6 space-y-6">
             {SIDEBAR.map(section => (
               <div key={section.group}>
-                <p className="text-[10px] font-bold text-white/25 uppercase tracking-widest mb-2 px-2">{section.group}</p>
+                <p className="text-[10px] font-bold text-white/25 uppercase tracking-widest mb-2 px-2">{isAr ? section.groupAr : section.group}</p>
                 <ul className="space-y-0.5">
                   {section.items.map(item => {
                     const Icon = item.icon;
@@ -438,7 +445,7 @@ export default function DocsPage() {
                               : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]'
                           }`}>
                           <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                          {item.label}
+                          {isAr ? (item as { labelAr?: string }).labelAr ?? item.label : item.label}
                           {item.id === activeStep && <ChevronRight className="w-3 h-3 ml-auto text-primary/60" />}
                         </button>
                       </li>

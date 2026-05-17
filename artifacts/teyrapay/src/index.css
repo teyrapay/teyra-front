@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('/tajawal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -101,6 +108,13 @@
 }
 
 .font-syne { font-family: 'Syne', sans-serif; }
+
+html[lang="ar"] {
+  --app-font-sans: 'Tajawal', sans-serif;
+  letter-spacing: 0;
+}
+html[lang="ar"] .font-syne { font-family: 'Tajawal', sans-serif; font-weight: 800; }
+html[lang="ar"] * { letter-spacing: 0 !important; }
 
 /* Gradients */
 .text-gradient {

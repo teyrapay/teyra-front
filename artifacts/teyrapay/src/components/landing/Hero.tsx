@@ -1,17 +1,20 @@
 import { ArrowRight, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const STATS = [
-  { label: 'Processing Volume', value: '$2.4B+' },
-  { label: 'Success Rate', value: '99.3%' },
-  { label: 'Countries', value: '25+' },
-  { label: 'API Uptime', value: '99.95%' },
-];
-
-const BADGES = ['PCI-DSS Compliant', 'SOC 2 Type II', '3D Secure 2.0', 'SAMA Licensed'];
+const BADGE_LABELS = ['PCI-DSS Compliant', 'SOC 2 Type II', '3D Secure 2.0', 'SAMA Licensed'];
 
 export default function Hero() {
+  const { t } = useLanguage();
+
+  const STATS = [
+    { label: t.hero.stat1, value: '$2.4B+' },
+    { label: t.hero.stat2, value: '99.3%' },
+    { label: t.hero.stat3, value: '25+' },
+    { label: t.hero.stat4, value: '99.95%' },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[hsl(222,47%,7%)] pt-20">
       <div className="absolute inset-0 bg-grid opacity-100" />
@@ -21,20 +24,19 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-8">
           <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
-          Now accepting early access applications
+          {t.hero.badge}
         </div>
 
         <h1 className="font-syne text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[0.95] tracking-tight mb-6">
-          Payments built
+          {t.hero.headline1}
           <br />
-          <span className="text-gradient">for the MENA</span>
+          <span className="text-gradient">{t.hero.headline2}</span>
           <br />
-          <span className="text-white/75">region</span>
+          <span className="text-white/75">{t.hero.headline3}</span>
         </h1>
 
         <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-10">
-          White-label payment infrastructure with intelligent PSP routing, fraud prevention,
-          and enterprise compliance — built for Saudi Arabia, UAE, and beyond.
+          {t.hero.subtitle}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -42,13 +44,13 @@ export default function Hero() {
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 rounded-xl text-base glow transition-all duration-300 hover:scale-105 shadow-xl shadow-primary/25">
-              Get Early Access
-              <ArrowRight className="w-4 h-4 ml-2" />
+              {t.hero.cta}
+              <ArrowRight className="w-4 h-4 ml-2 rtl:mr-2 rtl:ml-0 rtl:rotate-180" />
             </Button>
           </Link>
           <Link href="/dashboard">
             <button className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-base font-medium">
-              View Dashboard Demo →
+              {t.hero.demo}
             </button>
           </Link>
         </div>
@@ -63,7 +65,7 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 opacity-35">
-          {BADGES.map(badge => (
+          {BADGE_LABELS.map(badge => (
             <div key={badge} className="flex items-center gap-1.5 text-white text-xs font-medium">
               <Shield className="w-3 h-3" />
               {badge}

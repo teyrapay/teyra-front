@@ -20494,27 +20494,27 @@ var require_router = __commonJS({
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var methods = METHODS.map((method) => method.toLowerCase());
-    module.exports = Router3;
+    module.exports = Router4;
     module.exports.Route = Route;
-    function Router3(options) {
-      if (!(this instanceof Router3)) {
-        return new Router3(options);
+    function Router4(options) {
+      if (!(this instanceof Router4)) {
+        return new Router4(options);
       }
       const opts = options || {};
-      function router3(req, res, next) {
-        router3.handle(req, res, next);
+      function router4(req, res, next) {
+        router4.handle(req, res, next);
       }
-      Object.setPrototypeOf(router3, this);
-      router3.caseSensitive = opts.caseSensitive;
-      router3.mergeParams = opts.mergeParams;
-      router3.params = {};
-      router3.strict = opts.strict;
-      router3.stack = [];
-      return router3;
+      Object.setPrototypeOf(router4, this);
+      router4.caseSensitive = opts.caseSensitive;
+      router4.mergeParams = opts.mergeParams;
+      router4.params = {};
+      router4.strict = opts.strict;
+      router4.stack = [];
+      return router4;
     }
-    Router3.prototype = function() {
+    Router4.prototype = function() {
     };
-    Router3.prototype.param = function param(name, fn) {
+    Router4.prototype.param = function param(name, fn) {
       if (!name) {
         throw new TypeError("argument name is required");
       }
@@ -20534,7 +20534,7 @@ var require_router = __commonJS({
       params.push(fn);
       return this;
     };
-    Router3.prototype.handle = function handle(req, res, callback) {
+    Router4.prototype.handle = function handle(req, res, callback) {
       if (!callback) {
         throw new TypeError("argument callback is required");
       }
@@ -20661,7 +20661,7 @@ var require_router = __commonJS({
         }
       }
     };
-    Router3.prototype.use = function use(handler) {
+    Router4.prototype.use = function use(handler) {
       let offset = 0;
       let path = "/";
       if (typeof handler !== "function") {
@@ -20694,7 +20694,7 @@ var require_router = __commonJS({
       }
       return this;
     };
-    Router3.prototype.route = function route(path) {
+    Router4.prototype.route = function route(path) {
       const route2 = new Route(path);
       const layer = new Layer(path, {
         sensitive: this.caseSensitive,
@@ -20709,7 +20709,7 @@ var require_router = __commonJS({
       return route2;
     };
     methods.concat("all").forEach(function(method) {
-      Router3.prototype[method] = function(path) {
+      Router4.prototype[method] = function(path) {
         const route = this.route(path);
         route[method].apply(route, slice.call(arguments, 1));
         return this;
@@ -20892,13 +20892,13 @@ var require_application = __commonJS({
     var compileTrust = require_utils3().compileTrust;
     var resolve = __require("node:path").resolve;
     var once = require_once();
-    var Router3 = require_router();
+    var Router4 = require_router();
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var app2 = exports = module.exports = {};
     var trustProxyDefaultSymbol = "@@symbol:trust_proxy_default";
     app2.init = function init() {
-      var router3 = null;
+      var router4 = null;
       this.cache = /* @__PURE__ */ Object.create(null);
       this.engines = /* @__PURE__ */ Object.create(null);
       this.settings = /* @__PURE__ */ Object.create(null);
@@ -20907,13 +20907,13 @@ var require_application = __commonJS({
         configurable: true,
         enumerable: true,
         get: function getrouter() {
-          if (router3 === null) {
-            router3 = new Router3({
+          if (router4 === null) {
+            router4 = new Router4({
               caseSensitive: this.enabled("case sensitive routing"),
               strict: this.enabled("strict routing")
             });
           }
-          return router3;
+          return router4;
         }
       });
     };
@@ -20984,15 +20984,15 @@ var require_application = __commonJS({
       if (fns.length === 0) {
         throw new TypeError("app.use() requires a middleware function");
       }
-      var router3 = this.router;
+      var router4 = this.router;
       fns.forEach(function(fn2) {
         if (!fn2 || !fn2.handle || !fn2.set) {
-          return router3.use(path, fn2);
+          return router4.use(path, fn2);
         }
         debug(".use app under %s", path);
         fn2.mountpath = path;
         fn2.parent = this;
-        router3.use(path, function mounted_app(req, res, next) {
+        router4.use(path, function mounted_app(req, res, next) {
           var orig = req.app;
           fn2.handle(req, res, function(err) {
             Object.setPrototypeOf(req, orig.request);
@@ -23565,7 +23565,7 @@ var require_express = __commonJS({
     var EventEmitter = __require("node:events").EventEmitter;
     var mixin = require_merge_descriptors();
     var proto = require_application();
-    var Router3 = require_router();
+    var Router4 = require_router();
     var req = require_request();
     var res = require_response();
     exports = module.exports = createApplication;
@@ -23587,8 +23587,8 @@ var require_express = __commonJS({
     exports.application = proto;
     exports.request = req;
     exports.response = res;
-    exports.Route = Router3.Route;
-    exports.Router = Router3;
+    exports.Route = Router4.Route;
+    exports.Router = Router4;
     exports.json = bodyParser.json;
     exports.raw = bodyParser.raw;
     exports.static = require_serve_static();
@@ -28447,12 +28447,12 @@ var require_logger = __commonJS({
 });
 
 // src/app.ts
-var import_express3 = __toESM(require_express2(), 1);
+var import_express4 = __toESM(require_express2(), 1);
 var import_cors = __toESM(require_lib3(), 1);
 var import_pino_http = __toESM(require_logger(), 1);
 
 // src/routes/index.ts
-var import_express2 = __toESM(require_express2(), 1);
+var import_express3 = __toESM(require_express2(), 1);
 
 // src/routes/health.ts
 var import_express = __toESM(require_express2(), 1);
@@ -32346,10 +32346,9 @@ router.get("/healthz", (_req, res) => {
 });
 var health_default = router;
 
-// src/routes/index.ts
-var router2 = (0, import_express2.Router)();
-router2.use(health_default);
-var routes_default = router2;
+// src/routes/email.ts
+var import_express2 = __toESM(require_express2(), 1);
+import nodemailer from "nodemailer";
 
 // src/lib/logger.ts
 var import_pino = __toESM(require_pino(), 1);
@@ -32369,8 +32368,184 @@ var logger = (0, import_pino.default)({
   }
 });
 
+// src/routes/email.ts
+var router2 = (0, import_express2.Router)();
+function createTransport() {
+  const host = process.env["SMTP_HOST"];
+  const user = process.env["SMTP_USER"];
+  const pass = process.env["SMTP_PASS"];
+  const port2 = Number(process.env["SMTP_PORT"] ?? 587);
+  if (!host || !user || !pass) return null;
+  return nodemailer.createTransport({
+    host,
+    port: port2,
+    secure: port2 === 465,
+    auth: { user, pass }
+  });
+}
+var NOTIFY = process.env["NOTIFY_EMAIL"] ?? "info@teyrapay.com";
+var FROM = process.env["SMTP_FROM"] ?? process.env["SMTP_USER"] ?? "noreply@teyrapay.com";
+router2.post("/contact", async (req, res) => {
+  const { name, email, company, subject, message } = req.body ?? {};
+  if (!name || !email || !message) {
+    res.status(400).json({ error: "name, email and message are required" });
+    return;
+  }
+  const transport = createTransport();
+  const adminHtml = `
+    <h2>New contact form submission \u2013 TeyraPay</h2>
+    <table style="border-collapse:collapse;width:100%">
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Name</td><td style="padding:8px;border:1px solid #eee">${name}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Email</td><td style="padding:8px;border:1px solid #eee">${email}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Company</td><td style="padding:8px;border:1px solid #eee">${company ?? "\u2014"}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Subject</td><td style="padding:8px;border:1px solid #eee">${subject ?? "\u2014"}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Message</td><td style="padding:8px;border:1px solid #eee">${message}</td></tr>
+    </table>
+  `;
+  const confirmHtml = `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+      <div style="background:#1a2e5a;padding:24px;border-radius:8px 8px 0 0">
+        <h1 style="color:white;margin:0;font-size:22px">\u26A1 TeyraPay</h1>
+      </div>
+      <div style="padding:32px;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px">
+        <h2 style="color:#1a2e5a;margin-top:0">We received your message, ${name}!</h2>
+        <p style="color:#555;line-height:1.6">Thank you for reaching out. Our team will review your message and get back to you within <strong>1 business day</strong>.</p>
+        <div style="background:#f5f8ff;border-left:4px solid #2563eb;padding:16px;margin:24px 0;border-radius:0 8px 8px 0">
+          <p style="margin:0;color:#374151;font-style:italic">"${message}"</p>
+        </div>
+        <p style="color:#555">While you wait, explore our <a href="https://teyrapay.com/docs" style="color:#2563eb">documentation</a> or check our <a href="https://teyrapay.com/status" style="color:#2563eb">system status</a>.</p>
+        <hr style="border:none;border-top:1px solid #e0e0e0;margin:24px 0" />
+        <p style="color:#999;font-size:12px;margin:0">\xA9 2026 TeyraPay Financial Technology Co. \xB7 King Fahd Road, Riyadh, Saudi Arabia</p>
+      </div>
+    </div>
+  `;
+  if (!transport) {
+    logger.warn({ name, email, subject }, "SMTP not configured \u2014 contact form submission logged only");
+    res.json({ ok: true, note: "smtp_not_configured" });
+    return;
+  }
+  try {
+    await Promise.all([
+      transport.sendMail({ from: FROM, to: NOTIFY, subject: `[TeyraPay Contact] ${subject ?? "New message"} from ${name}`, html: adminHtml, replyTo: email }),
+      transport.sendMail({ from: FROM, to: email, subject: "We received your message \u2013 TeyraPay", html: confirmHtml })
+    ]);
+    res.json({ ok: true });
+  } catch (err) {
+    logger.error({ err }, "Failed to send contact email");
+    res.status(500).json({ error: "Failed to send email" });
+  }
+});
+router2.post("/waitlist", async (req, res) => {
+  const { email, name } = req.body ?? {};
+  if (!email) {
+    res.status(400).json({ error: "email is required" });
+    return;
+  }
+  const transport = createTransport();
+  const adminHtml = `<h2>New waitlist signup \u2013 TeyraPay</h2><p>Email: <strong>${email}</strong>${name ? ` | Name: <strong>${name}</strong>` : ""}</p>`;
+  const confirmHtml = `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+      <div style="background:#1a2e5a;padding:24px;border-radius:8px 8px 0 0">
+        <h1 style="color:white;margin:0;font-size:22px">\u26A1 TeyraPay</h1>
+      </div>
+      <div style="padding:32px;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px">
+        <h2 style="color:#1a2e5a;margin-top:0">You're on the waitlist! \u{1F389}</h2>
+        <p style="color:#555;line-height:1.6">Thank you for your interest in TeyraPay. You're one of the first merchants to sign up for early access.</p>
+        <div style="background:#f0fdf4;border:1px solid #86efac;padding:16px;border-radius:8px;margin:24px 0">
+          <p style="margin:0 0 8px 0;font-weight:bold;color:#166534">What happens next:</p>
+          <ul style="margin:0;padding-left:20px;color:#166534">
+            <li>Our team will review your application</li>
+            <li>You'll receive your credentials within 1\u20132 business days</li>
+            <li>Sandbox access is available immediately upon approval</li>
+          </ul>
+        </div>
+        <p style="color:#555">Questions? Reply to this email or contact us at <a href="mailto:onboarding@teyrapay.com" style="color:#2563eb">onboarding@teyrapay.com</a></p>
+        <hr style="border:none;border-top:1px solid #e0e0e0;margin:24px 0" />
+        <p style="color:#999;font-size:12px;margin:0">\xA9 2026 TeyraPay Financial Technology Co. \xB7 King Fahd Road, Riyadh, Saudi Arabia</p>
+      </div>
+    </div>
+  `;
+  if (!transport) {
+    logger.warn({ email }, "SMTP not configured \u2014 waitlist signup logged only");
+    res.json({ ok: true, note: "smtp_not_configured" });
+    return;
+  }
+  try {
+    await Promise.all([
+      transport.sendMail({ from: FROM, to: NOTIFY, subject: `[TeyraPay Waitlist] New signup: ${email}`, html: adminHtml }),
+      transport.sendMail({ from: FROM, to: email, subject: "You're on the TeyraPay waitlist! \u{1F389}", html: confirmHtml })
+    ]);
+    res.json({ ok: true });
+  } catch (err) {
+    logger.error({ err }, "Failed to send waitlist email");
+    res.status(500).json({ error: "Failed to send email" });
+  }
+});
+router2.post("/application", async (req, res) => {
+  const { name, email, business, country, monthly_volume } = req.body ?? {};
+  if (!name || !email) {
+    res.status(400).json({ error: "name and email are required" });
+    return;
+  }
+  const transport = createTransport();
+  const adminHtml = `
+    <h2>New merchant application \u2013 TeyraPay</h2>
+    <table style="border-collapse:collapse;width:100%">
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Name</td><td style="padding:8px;border:1px solid #eee">${name}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Email</td><td style="padding:8px;border:1px solid #eee">${email}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Business</td><td style="padding:8px;border:1px solid #eee">${business ?? "\u2014"}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Country</td><td style="padding:8px;border:1px solid #eee">${country ?? "\u2014"}</td></tr>
+      <tr><td style="padding:8px;border:1px solid #eee;font-weight:bold">Monthly Volume</td><td style="padding:8px;border:1px solid #eee">${monthly_volume ?? "\u2014"}</td></tr>
+    </table>
+  `;
+  const confirmHtml = `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+      <div style="background:#1a2e5a;padding:24px;border-radius:8px 8px 0 0">
+        <h1 style="color:white;margin:0;font-size:22px">\u26A1 TeyraPay</h1>
+      </div>
+      <div style="padding:32px;border:1px solid #e0e0e0;border-top:none;border-radius:0 0 8px 8px">
+        <h2 style="color:#1a2e5a;margin-top:0">Application received, ${name}!</h2>
+        <p style="color:#555;line-height:1.6">Thank you for applying to TeyraPay. Our onboarding team will review your application and reach out within <strong>1\u20132 business days</strong> with your sandbox credentials.</p>
+        <div style="background:#f0fdf4;border:1px solid #86efac;padding:16px;border-radius:8px;margin:24px 0">
+          <p style="margin:0 0 8px 0;font-weight:bold;color:#166534">What's happening now:</p>
+          <ul style="margin:0;padding-left:20px;color:#166534">
+            <li>Account verification email sent \u2713</li>
+            <li>KYB review started automatically \u2713</li>
+            <li>Sandbox access available upon approval</li>
+          </ul>
+        </div>
+        <p style="color:#555">Questions? Contact us at <a href="mailto:onboarding@teyrapay.com" style="color:#2563eb">onboarding@teyrapay.com</a></p>
+        <hr style="border:none;border-top:1px solid #e0e0e0;margin:24px 0" />
+        <p style="color:#999;font-size:12px;margin:0">\xA9 2026 TeyraPay Financial Technology Co. \xB7 King Fahd Road, Riyadh, Saudi Arabia</p>
+      </div>
+    </div>
+  `;
+  if (!transport) {
+    logger.warn({ name, email }, "SMTP not configured \u2014 application logged only");
+    res.json({ ok: true, note: "smtp_not_configured" });
+    return;
+  }
+  try {
+    await Promise.all([
+      transport.sendMail({ from: FROM, to: NOTIFY, subject: `[TeyraPay Application] ${name} \u2014 ${business ?? "no business name"}`, html: adminHtml, replyTo: email }),
+      transport.sendMail({ from: FROM, to: email, subject: "Your TeyraPay application is under review", html: confirmHtml })
+    ]);
+    res.json({ ok: true });
+  } catch (err) {
+    logger.error({ err }, "Failed to send application email");
+    res.status(500).json({ error: "Failed to send email" });
+  }
+});
+var email_default = router2;
+
+// src/routes/index.ts
+var router3 = (0, import_express3.Router)();
+router3.use(health_default);
+router3.use("/email", email_default);
+var routes_default = router3;
+
 // src/app.ts
-var app = (0, import_express3.default)();
+var app = (0, import_express4.default)();
 app.use(
   (0, import_pino_http.default)({
     logger,
@@ -32391,8 +32566,8 @@ app.use(
   })
 );
 app.use((0, import_cors.default)());
-app.use(import_express3.default.json());
-app.use(import_express3.default.urlencoded({ extended: true }));
+app.use(import_express4.default.json());
+app.use(import_express4.default.urlencoded({ extended: true }));
 app.use("/api", routes_default);
 var app_default = app;
 

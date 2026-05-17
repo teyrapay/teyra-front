@@ -1,13 +1,14 @@
 import { Zap } from 'lucide-react';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const LINKS: Record<string, { label: string; href: string }[]> = {
+const LINK_MAP: Record<string, { label: string; href: string }[]> = {
   Product: [
     { label: 'Hosted Checkout', href: '/hosted-checkout' },
     { label: 'Payment Links', href: '/payment-links-page' },
     { label: 'Invoicing', href: '/invoicing' },
     { label: 'Subscriptions', href: '/subscriptions-page' },
-    { label: 'API', href: '/api' },
+    { label: 'API', href: '/docs' },
   ],
   Solutions: [
     { label: 'E-commerce', href: '/ecommerce' },
@@ -30,6 +31,8 @@ const LINKS: Record<string, { label: string; href: string }[]> = {
 };
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-[hsl(222,47%,6%)] border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -42,7 +45,7 @@ export default function Footer() {
               <span className="font-syne font-bold text-white text-lg">TeyraPay</span>
             </Link>
             <p className="text-white/35 text-sm leading-relaxed">
-              Modern payment infrastructure for MENA businesses.
+              {t.footer.tagline}
             </p>
             <div className="flex gap-3 mt-6">
               {['PCI', 'SOC2', 'SAMA'].map(badge => (
@@ -53,14 +56,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {Object.entries(LINKS).map(([category, items]) => (
+          {Object.entries(LINK_MAP).map(([category, items]) => (
             <div key={category}>
-              <h3 className="font-semibold text-white text-sm mb-4">{category}</h3>
+              <h3 className="font-semibold text-white text-sm mb-4">
+                {t.footer.categories[category as keyof typeof t.footer.categories]}
+              </h3>
               <ul className="space-y-2.5">
                 {items.map(item => (
                   <li key={item.label}>
                     <Link href={item.href} className="text-white/35 text-sm hover:text-white/70 transition-colors">
-                      {item.label}
+                      {t.footer.links[item.label as keyof typeof t.footer.links] ?? item.label}
                     </Link>
                   </li>
                 ))}
@@ -70,11 +75,11 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/[0.06] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-sm">© 2026 TeyraPay. All rights reserved.</p>
+          <p className="text-white/25 text-sm">{t.footer.copyright}</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-white/20 text-xs hover:text-white/40 transition-colors">Privacy</Link>
-            <Link href="/terms" className="text-white/20 text-xs hover:text-white/40 transition-colors">Terms</Link>
-            <p className="text-white/25 text-xs">Built for MENA · Regulated · Secure</p>
+            <Link href="/privacy" className="text-white/20 text-xs hover:text-white/40 transition-colors">{t.footer.privacy}</Link>
+            <Link href="/terms" className="text-white/20 text-xs hover:text-white/40 transition-colors">{t.footer.terms}</Link>
+            <p className="text-white/25 text-xs">{t.footer.tagline2}</p>
           </div>
         </div>
       </div>
